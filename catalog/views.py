@@ -12,7 +12,7 @@ def index(request):
     num_instances_available = BookInstance.objects.filter(status__exact='a').count()
 
     num_authors = Author.objects.count()
-    num_genres = Genre.objects.count()
+    num_genres = Genre.objects.filter(name__icontains='fiction').count()
     num_books_with_the = Book.objects.filter(title__icontains='the').count()
 
     context = {
