@@ -6,4 +6,12 @@ dependencies = [
     "channels-redis>=4.3.0",
     "channels[daphne]>=4.3.2",
     "django>=6.1.1",
+    "django-environ>=0.14.0",
+]
+
+[dependency-groups]
+prod = [
+    "daphne>=4.2.3",
+    "gunicorn>=26.2.0",
+    "psycopg[binary]>=3.3.6",
 ]
