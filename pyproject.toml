@@ -10,6 +10,9 @@ dependencies = [
 ]
 
 [dependency-groups]
+dev = [
+    "selenium>=4.51.0",
+]
 prod = [
     "daphne>=4.2.3",
     "gunicorn>=26.2.0",
