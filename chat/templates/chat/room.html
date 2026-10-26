@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <form>
+    <form onsubmit="return false;">
         <textarea id="chat-log" cols="100" rows="20"></textarea><br>
         <input id="chat-message-input" type="text" size="100"><br>
         <input id="chat-message-submit" type="button" value="Send">
@@ -32,22 +32,44 @@
             document.querySelector('#chat-log').value += (data.message + '\n');
         };
 
+        chatSocket.onopen = function (e) {
+            console.log('WebSocket connected successfully');
+        };
+
+        chatSocket.onerror = function (e) {
+            console.error('WebSocket error:', e);
+        };
+
         chatSocket.onclose = function (e) {
-            console.error('Chat socket closed unexpectedly');
+            console.error('WebSocket closed:', {
+                code: e.code,
+                reason: e.reason,
+                wasClean: e.wasClean
+            });
         };
 
         document.querySelector('#chat-message-input').focus();
 
 
-        document.querySelector('form').addEventListener('submit', (e) => {
-            e.preventDefault();
+        document.querySelector('#chat-message-input').onkeyup = function (e) {
+            if (e.key === 'Enter') {
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+
+        document.querySelector('#chat-message-submit').onclick = function (e) {
             const messageInputDom = document.querySelector('#chat-message-input');
             const message = messageInputDom.value;
+            if (chatSocket.readyState !== WebSocket.OPEN) {
+                console.error('WebSocket is not connected');
+                return;
+            }
+
             chatSocket.send(JSON.stringify({
                 'message': message
             }));
             messageInputDom.value = '';
-        });
+        };
     </script>
 </body>
 
