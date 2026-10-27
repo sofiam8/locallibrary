@@ -20,12 +20,16 @@ def authorize_books(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('catalog', '0001_bookauthor_book_authors_and_more'),
+        ("catalog", "0001_bookauthor_book_authors_and_more"),
     ]
 
     operations = [
+        migrations.RunPython(
+            authorize_books,
+            migrations.RunPython.noop,
+        ),
         migrations.RemoveField(
-            model_name='book',
-            name='author',
+            model_name="book",
+            name="author",
         ),
     ]
