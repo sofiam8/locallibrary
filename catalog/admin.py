@@ -1,27 +1,33 @@
 from django.contrib import admin
 
-from .models import Author, Book, BookInstance, Genre, Language
+from .models import Author, Book, BookAuthor, BookInstance, Genre, Language
 
 
-class BooksInline(admin.TabularInline):
-    model = Book
-
-
-@admin.register(Author)
-class AuthorAdmin(admin.ModelAdmin):
-    list_display = ("last_name", "first_name", "date_of_birth", "date_of_death")
-    fields = ["first_name", "last_name", ("date_of_birth", "date_of_death")]
-    inlines = [BooksInline]
+class BookAuthorInline(admin.TabularInline):
+    model = BookAuthor
+    extra = 1
 
 
 class BooksInstanceInline(admin.TabularInline):
     model = BookInstance
 
 
+@admin.register(Author)
+class AuthorAdmin(admin.ModelAdmin):
+    list_display = ("last_name", "first_name", "date_of_birth", "date_of_death")
+    fields = ["first_name", "last_name", ("date_of_birth", "date_of_death")]
+    inlines = [BookAuthorInline]
+
+
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ("title", "author", "display_genre", "language")
-    inlines = [BooksInstanceInline]
+    list_display = ("title", "display_genre", "language")
+    inlines = [BookAuthorInline, BooksInstanceInline]
+
+
+@admin.register(BookAuthor)
+class BookAuthorAdmin(admin.ModelAdmin):
+    list_display = ("book", "author", "author_order")
 
 
 @admin.register(BookInstance)
@@ -40,4 +46,4 @@ class BookInstanceAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Genre)
-admin.site.register(Language)
+admin.site.register(Language) 

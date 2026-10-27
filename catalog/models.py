@@ -29,10 +29,10 @@ class Book(models.Model):
     """Model representing a book."""
     title = models.CharField(max_length=200)
 
-    author = models.ForeignKey(
+    authors = models.ManyToManyField(
         "Author",
-        on_delete = models.RESTRICT,
-        null = True
+        through="BookAuthor",
+        related_name="books"
     )
 
     summary = models.TextField(
@@ -126,3 +126,30 @@ class Author(models.Model):
 
     def __str__(self):
         return f"{self.last_name}, {self.first_name}"
+
+class BookAuthor(models.Model):
+    """Connects books to authors and records author order."""
+
+    book = models.ForeignKey(
+        "Book",
+        on_delete=models.CASCADE
+    )
+
+    author = models.ForeignKey(
+        "Author",
+        on_delete=models.CASCADE
+    )
+
+    author_order = models.IntegerField()
+
+    class Meta:
+        ordering = ["author_order"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["book", "author"],
+                name="unique_book_author"
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.book} - {self.author}"

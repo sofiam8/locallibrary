@@ -1,3 +1,4 @@
+
 {% extends "base_generic.html" %}
 
 {% block content %}
@@ -11,9 +12,9 @@
 
     <h2>Books</h2>
 
-    {% if author.book_set.all %}
+    {% if author.books.all %}
         <ul>
-            {% for book in author.book_set.all %}
+            {% for book in author.books.all %}
                 <li>
                     <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
                 </li>

@@ -4,9 +4,13 @@
   <h1>Title: {{ book.title }}</h1>
 
   <p>
-    <strong>Author:</strong>
-    <a href="{{ book.author.get_absolute_url }}">{{ book.author }}</a>
-  </p>
+    <strong>Authors:</strong>
+    {% for author in book.authors.all % }
+      <a href="{{ author.get_absolute_url }}">{{ author }}</a>{% if not forloop.last %}, {% endif %}
+    {% empty %}
+      Unknown
+    {% endfor %}
+  </p>>
 
   <p><strong>Summary:</strong> {{ book.summary }}</p>
   <p><strong>ISBN:</strong> {{ book.isbn }}</p>
