@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'ninja',
+    'projects',
+    'tasks',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -177,3 +180,6 @@ LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 
 # ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
+
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
