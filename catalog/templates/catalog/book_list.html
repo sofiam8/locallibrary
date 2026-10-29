@@ -21,4 +21,7 @@
   {% else %}
     <p>There are no books in the library.</p>
   {% endif %}
+  {% if perms.catalog.add_book %}
+    <p><a href="{% url 'book-create' %}">Create book</a></p>
+  {% endif %}
 {% endblock %}

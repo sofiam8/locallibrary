@@ -16,4 +16,9 @@
   {% else %}
     <p>There are no authors in the library.</p>
   {% endif %}
+  {% if perms.catalog.add_author %}
+    <p>
+        <a href="{% url 'author-create' %}">Create author</a>
+    </p>
+  {% endif %}
 {% endblock %}

@@ -38,4 +38,11 @@
       </p>
     {% endfor %}
   </div>
+  {% if perms.catalog.change_book %}
+    <p><a href="{% url 'book-update' book.pk %}">Update book</a></p>
+  {% endif %}
+
+  {% if perms.catalog.delete_book %}
+      <p><a href="{% url 'book-delete' book.pk %}">Delete book</a></p>
+  {% endif %}
 {% endblock %}
