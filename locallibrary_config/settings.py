@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'catalog.apps.CatalogConfig',
     'chat',
+    'allauth',
+    'allauth.account',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +55,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -62,7 +65,7 @@ ROOT_URLCONF = 'locallibrary_config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -151,3 +154,25 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+ACCOUNT_LOGIN_METHODS = {'username', 'email'}
+
+ACCOUNT_SIGNUP_FIELDS = [
+    'email*',
+    'username*',
+    'password1*',
+    'password2*',
+]
+
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_UNIQUE_EMAIL = True
+
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+
+# ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
