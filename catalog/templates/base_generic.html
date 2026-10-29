@@ -22,6 +22,9 @@
                         <li><a href="/catalog/">Home</a></li>
                         <li><a href="{% url 'books' %}">All books</a></li>
                         <li><a href="{% url 'authors' %}">All authors</a></li>
+                        {% if perms.catalog.add_author %}
+                            <li><a href="{% url 'author-create' %}">Create author</a></li>
+                        {% endif %}
 
                         <hr>
 
