@@ -6,6 +6,7 @@ from django.urls import include, path
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
+from .api import api
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -13,6 +14,7 @@ urlpatterns = [
     path('catalog/', include('catalog.urls')),
     path('chat/', include('chat.urls')),
     path('', RedirectView.as_view(url='catalog/')),
+    path("api/", api.urls),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

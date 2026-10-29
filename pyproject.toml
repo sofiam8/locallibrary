@@ -8,6 +8,7 @@ dependencies = [
     "django>=6.1.1",
     "django-allauth>=65.21.0",
     "django-environ>=0.14.0",
+    "django-ninja>=1.7.1",
 ]
 
 [dependency-groups]
